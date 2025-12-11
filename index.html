@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProPlan Unified System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo"><i class="fas fa-rocket"></i> <span>J.Plan</span></div>
+            <nav class="nav-menu">
+                <a href="#" id="link-dashboard" class="active" onclick="showPage('page-dashboard')"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#" id="link-projects" onclick="showPage('page-projects')"><i class="fas fa-list-ul"></i> Project List</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="page-dashboard" class="page-section">
+                <header class="top-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Cari misi aktif..." oninput="renderApp(this.value.toLowerCase())">
+                    </div>
+                    <div class="current-date" id="currentDate"></div>
+                </header>
+
+                <div class="content-header">
+                    <div>
+                        <h1 id="greetingText">Halo, Productive! 👋</h1>
+                        <p>Kelola prioritasmu dan pantau statistik progres hari ini.</p>
+                    </div>
+                    <button class="btn-primary" onclick="openModal()">
+                        <i class="fas fa-plus"></i> New Mission
+                    </button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Mission Board</h3>
+                            <span id="activeCounter" class="badge-count">0 Aktif</span>
+                        </div>
+                        <ul id="taskList"></ul>
+                    </div>
+                    <div class="stats-col">
+                        <div class="card">
+                            <h3>Project Overview</h3>
+                            <div class="chart-container"><canvas id="taskChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="page-projects" class="page-section" style="display:none;">
+                <div class="content-header">
+                    <div>
+                        <h1>Detailed Project List</h1>
+                        <p>Monitoring progres dan detail seluruh misi dalam format enterprise.</p>
+                    </div>
+                    <button class="btn-primary" onclick="openModal()">+ Add New</button>
+                </div>
+
+                <div class="card table-card">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Category</th>
+                                <th>Priority</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="taskModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Launch New Mission</h2>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label>Judul Misi</label>
+                    <input type="text" id="mTitle" placeholder="Misal: Desain UI Landing Page">
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Kategori</label>
+                        <select id="mCat">
+                            <option value="Work">Pekerjaan</option>
+                            <option value="Personal">Pribadi</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Prioritas</label>
+                        <select id="mPrio">
+                            <option value="High">🔥 High</option>
+                            <option value="Medium">⚡ Medium</option>
+                            <option value="Low" selected>💧 Low</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="saveData()">Launch Mission</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
